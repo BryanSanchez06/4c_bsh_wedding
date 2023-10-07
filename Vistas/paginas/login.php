@@ -71,7 +71,6 @@
                         <?php
                         $ingreso = new ControladorFormularios();
                         $ingreso->ctrIngreso();
-
                         ?>
                         <button type="submit" class="btn btn-primary">Ingresar</button>
                     </form>
@@ -80,5 +79,5 @@
             </div>
         </div>
     </div>
-</section>
+</section>*/
 <!--=========== Login Section End ========= -->

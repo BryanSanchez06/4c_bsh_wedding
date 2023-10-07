@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +45,31 @@
             <span></span>
          </div>
          <ul class="main-menu">
+         <li>
+               <a href="#0">Usuario <i class="fas fa-chevron-down"></i></a>
+               <ul class="sub-menu">
+                  <li class="subtwohober">
+                     <a href="index.php?pagina=login">
+                        <span>Login</span>
+                     </a>
+                  </li>
+                  <li class="subtwohober">
+                     <a href="index.php?pagina=register">
+                        <span>Register</span>
+                     </a>
+                  </li>
+                  <li class="subtwohober">
+                     <a href="index.php?pagina=exit">
+                        <span>exit</span>
+                     </a>
+                  </li>
+                  <li class="subtwohober">
+                     <a href="index.php?pagina=admin">
+                        <span>Administardor</span>
+                     </a>
+                  </li>
+               </ul>
+            </li>
             <li class="active">
                <a href="index.php?pagina=home">Home</a>
             </li>
@@ -135,7 +161,10 @@ if (isset($_GET["pagina"])) {
         $_GET["pagina"] == "service" ||
         $_GET["pagina"] == "story" ||
         $_GET["pagina"] == "login" ||
-        $_GET["pagina"] == "register"
+        $_GET["pagina"] == "register" ||
+        $_GET["pagina"] == "exit" ||
+        $_GET["pagina"] == "admin" ||
+        $_GET["pagina"] == "actualizar"
 
     ) {
         include "paginas/" . $_GET["pagina"] . ".php";
