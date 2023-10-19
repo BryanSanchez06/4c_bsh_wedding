@@ -6,4 +6,3 @@
     //echo '<pre>'; print_r($conexion); echo '</pre>';
     $plantilla = new ControladorPlantilla();
     $plantilla -> ctrTraerplantilla();
-?>

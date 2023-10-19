@@ -5,9 +5,10 @@ class ModeloFormularios
 {
     static public function mdlRegistro($tabla, $datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(`nombre`, `email`, `password`) 
-        VALUES (:nombre, :email, :password)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(token ,nombre ,email, password) 
+        VALUES (:token, :nombre, :email, :password)");
 
+        $stmt->bindParam(":token", $datos["token"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
         $stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
@@ -40,12 +41,12 @@ class ModeloFormularios
     static public function mdlActualizarRegistros($tabla, $datos)
     {
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre=:nombre, email=:email, password=:password 
-        WHERE id=:id");
+        WHERE token=:token");
 
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
         $stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
-        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":token", $datos["token"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             return "ok";
@@ -57,9 +58,26 @@ class ModeloFormularios
     }
     static public function mdlEliminarRegistro($tabla, $valor)
     {
-        $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE token = :token");
 
-        $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
+        $stmt->bindParam(":token", $valor, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            print_r(Conexion::conectar()->errorInfo());
+        }
+        // $stmt->close();
+        $stmt = null;
+    }
+
+    static public function mdlActualizarIntentosFallidos($tabla, $valor, $token)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET intentos_fallidos =:intentos_fallidos WHERE
+         token = :token");
+
+        $stmt->bindParam(":intentos_fallidos", $valor, PDO::PARAM_INT);
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             return "ok";
